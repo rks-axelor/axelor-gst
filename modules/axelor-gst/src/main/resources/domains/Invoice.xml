@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models 
+  http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+  <module package="com.axelor.axelor.gst.db" name="axelor-gst"/>
+  
+  <entity name="Invoice" lang="java">
+  <string name="status" title="Status" selection="gst.invoice.type.select" readonly="true"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.Company" name="company" title="Company" required="true"/>
+  <string name="reference" title="Reference" readonly="true"/>
+  <datetime name="invoiceDate" title="InvoiceDate"/>
+  <integer name="priority" title="Priority"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.Party" name="party" title="Party" required="true"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.Contact" name="partyContact" title="PartyContact"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.Address" name="invoiceAddress" title="InvoiceAddress" required="true"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.Address" name="shippingAddress" title="ShippingAddress"/>
+  <boolean name="isInvoiceAddressAsShipping" default="true"/>
+  <decimal name="netAmount" title="NetAmount" readonly="true"/>
+  <decimal name="igst" title="IGST" readonly="true"/>
+  <decimal name="cgst" title="CGST" readonly="true"/>
+  <decimal name="sgst" title="SGST" readonly="true"/>
+  <decimal name="grossAmount" title="GrossAmount" readonly="true"/>
+  <one-to-many ref="com.axelor.axelor.gst.db.InvoiceLine" name="invioceItemsList" title="InvoiceItem" />
+  
+  </entity>
+  </domain-models>

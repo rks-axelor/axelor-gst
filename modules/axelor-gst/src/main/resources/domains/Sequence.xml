@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models 
+  http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+  <module package="com.axelor.axelor.gst.db" name="axelor-gst"/>
+  
+  <entity name="Sequence" lang="java">
+  <string name="prefix" title="Prefix" required="true" unique="true"/>
+  <string name="suffix" title="Suffix"/>
+  <integer name="padding" title="Padding" min="1" max="10"/>
+  <string name="nextNumber" title="NextNumber" readonly="true"/>
+  <many-to-one ref="com.axelor.meta.db.MetaModel" name="model" title="Model" unique="true"/>
+  
+  
+  </entity>
+  
+  </domain-models>

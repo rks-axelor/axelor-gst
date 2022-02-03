@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models 
+  http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+  
+  <module package="com.axelor.axelor.gst.db" name="axelor-gst"/>
+  <entity name="Contact" lang="java">
+  <string name="name" title="Name" required="true"/>
+  <string name="type" title="Type" selection="gst.contact.type.select"/><!-- need to define selection -->
+  <string name="primaryEmail" title="Primary Email"/>
+  <string name="secondaryEmail" title="Secondary Email"/>
+  <string name="primaryPhone" title="Primary Phone"/>
+  <string name="secondaryPhone" title="Secondary Phone"/>
+   <many-to-one ref="com.axelor.axelor.gst.db.Company" name="company" title="Company"/>
+	 <many-to-one ref="com.axelor.axelor.gst.db.Party" name="party" title="Party" />
+  </entity>
+  
+  </domain-models>

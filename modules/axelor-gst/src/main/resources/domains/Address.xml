@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/domain-models 
+  http://axelor.com/xml/ns/domain-models/domain-models_5.4.xsd">
+  <module package="com.axelor.axelor.gst.db" name="axelor-gst"/>
+  <entity name="Address" lang="java">
+  <string name="type" title="Type" selection="gst.address.type.select"/>
+  <string name="line1" title="Line1" namecolumn="true"/>
+  <string name="line2" title="Line2"/>
+  <string name="pinCode" title="Pin Code"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.City" name="city" title="City"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.State" name="state" title="State"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.Country" name="country" title="Country"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.Company" name="company" title="Company"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.Party" name="party" title="Party"/>
+  </entity>
+  
+  </domain-models>
