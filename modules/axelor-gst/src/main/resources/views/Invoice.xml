@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+  
+  <grid model="com.axelor.axelor.gst.db.Invoice" title="Invoice" name="invoice-grid">
+  <field name="company"/>
+  <field name="status" readonly="true"/>
+  <field name="reference" readonly="true"/>
+  <field name="invoiceDate"/>
+  <field name="priority"/>
+  
+  </grid>
+    
+    <form model="com.axelor.axelor.gst.db.Invoice" title="" name="invoice-form" width="large">
+      <panel name= "invoice-panel">
+       <field name="status" widget="NavSelect" readonly="true"/>
+       <field name="reference" readonly="true"/>
+       <field name="company" required="true"/>
+       <field name="invoiceDate"/>
+       <field name="priority"/>
+       <field name="party"/>
+       <field name="partyContact"/>
+       <field name="invoiceAddress"/>
+       <field name="shippingAddress"/>
+       <field name="isInvoiceAddressAsShipping" />
+       <field name="netAmount" readonly="true"/>
+       <field name="igst" readonly="true"/>
+       <field name="cgst" readonly="true"/>
+       <field name="sgst" readonly="true"/>
+       <field name="grossAmount" readonly="true"/>
+      </panel>
+      <panel-related field="invioceItemsList"/>
+    </form>
+  </object-views>

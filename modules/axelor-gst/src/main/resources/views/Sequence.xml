@@ -5,11 +5,51 @@
   http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
   
   <grid model="com.axelor.axelor.gst.db.Sequence" title="Sequence" name="sequence-grid">
-    <field name="prefix"/>
+    <field name="prefix" required="true"/>
     <field name="suffix"/>
-    <field name="padding"/>
-    <field name="model"/>
+    <field name="padding" required="true"/>
+    <field name="model" required="true"/>
   </grid>
    
-   <form model="com.axelor.axelor.gst.db.Sequence" title="Sequence" name="sequence"></form>
+   <form model="com.axelor.axelor.gst.db.Sequence" title="Sequence" name="sequence-form">
+	    <panel name="sequence-panel">
+	       <field name="prefix" required="true" onChange="action.set.nextNumber.onchange"/>
+	       <field name="suffix" onChange="action.set.nextNumber.onchange"/>
+	       <field name="padding" required="true" onChange="action.set.nextNumber.onchange"/>
+	       <field name="nextNumber" readonly="true"/>
+	       <field name="model" required="true" onChange="action.set.nextNumber.onchange"/>
+	    </panel>
+   </form>
+   <!-- <action-method name="action.set.nextNumber.onchange">
+     <call class="com.axelor.gst.web.SequenceController" method="setNextNumber"/>
+   </action-method> -->
+   
+   <action-script name="action.set.nextNumber.onchange" model="com.axelor.axelor.gst.db.Sequence" >
+      <script language="js" transactional="true">
+          <![CDATA[
+		        var req = $request;
+		        var res = $response;
+		        var so = req.context;
+		        prefix = so.prefix;
+		        suffix = so.suffix;
+		        padding = so.padding;
+		        var pd = "";
+		        for(i=0; i<padding; i++){
+		          pd = pd + '0';
+		        }
+		        if(suffix === null ) 
+		        {
+		        suffix = "";
+		        var nextnumber = prefix + pd + suffix;
+		        res.setAttr("nextNumber","value",nextnumber);
+		        }
+		        else
+		        {
+		        var nextnumber = prefix + pd + suffix;
+		        res.setAttr("nextNumber","value",nextnumber);
+		        }
+		     ]]>
+      </script>
+   </action-script>
   </object-views>
+  

@@ -69,4 +69,16 @@
                        <view type="form" name="party-form"/>
                    </action-view>         
                   
+                <menuitem title="Sequence" name="sequence" action="action.menu.sequence.company"/>    
+                   <action-view name="action.menu.sequence.company" title="Sequence" model="com.axelor.axelor.gst.db.Sequence">
+                       <view type="grid" name="sequence-grid"/>
+                       <view type="form" name="sequence-form"/>
+                   </action-view> 
+                   
+                 
+                 <menuitem title="Invoice" name="invoice" action="action.menu.invoice.invoice"/>    
+                   <action-view name="action.menu.invoice.invoice" title="Invoice" model="com.axelor.axelor.gst.db.Invoice">
+                       <view type="grid" name="invoice-grid"/>
+                       <view type="form" name="invoice-form"/>
+                   </action-view>        
   </object-views>
