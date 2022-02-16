@@ -6,7 +6,7 @@
   
   <module package="com.axelor.axelor.gst.db" name="axelor-gst"/>
   <entity name="Country" lang="java">
-  <string name="name" title="Name"/>
+  <string name="name" title="Name" required="true"/>
   
   </entity>
   

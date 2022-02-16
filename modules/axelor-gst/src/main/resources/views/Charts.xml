@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views 
+  http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+  
+	<chart name="chart.unpaid.invoice.per.customer" 
+	       title="Un Paid Invoices Per Customer " onInit="action-attrs-fill-default-from-and-todate-in-chart-view" >
+		<search-fields> 
+		     <field type="date" name="fromDate" title="From Date" required="true" />
+		     <field type="date" name="toDate" title="To Date" required="true" />
+		  </search-fields>
+		 <dataset type="sql"> 
+			 <![CDATA[
+			SELECT COUNT(gst_invoice.id) as count_of_unpaid_invoice,
+				gst_party."name" as customer_name
+				from gst_invoice 
+			JOIN gst_party ON
+				gst_invoice.party = gst_party.id 
+			WHERE gst_invoice.status != 'paid' and 
+			   gst_invoice.invoice_date between DATE(:fromDate) and DATE(:toDate) 
+				group by gst_party."name" 
+				
+			 ]]>
+		 </dataset>
+		 <category key="customer_name" type="text"/> 
+		 <series key="count_of_unpaid_invoice" type="bar"/>
+	 </chart>
+	 
+	 
+	 <chart name="chart.paid.invoice.per.category.per.product" 
+	       title="Paid Invoices Per Category" onInit="action-attrs-fill-default-from-and-todate-in-chart-view" >
+		<search-fields> 
+		     <field type="date" name="fromDate" title="From Date" required="true" />
+		     <field type="date" name="toDate" title="To Date" required="true" />
+		  </search-fields>
+		 <dataset type="sql"> 
+			 <![CDATA[
+			    select gst_product_category."name" as Category_name,
+		        COUNT(gst_product_category."name") as Category_count
+		        from gst_product_category join gst_product on gst_product.id in
+		        (select gst_invoice_line.product as product_id
+		         from gst_invoice_line join gst_invoice 
+		         on gst_invoice.gross_amount = gst_invoice_line.gross_amount and
+		          gst_invoice.status = 'paid' and 
+		          gst_invoice.invoice_date between DATE(:fromDate) and DATE(:toDate) )
+		          where gst_product.category = gst_product_category.id 
+		          group by gst_product_category."name" 
+			 ]]>
+		 </dataset>
+		 <category key="category_name" type="text"/> 
+		 <series key="category_count" type="bar"/>
+	 </chart>
+	 
+	  <chart name="chart.customer.per.state" 
+	       title="Customer Per State">
+		 <dataset type="sql"> 
+			 <![CDATA[
+			 select st.name as state_name,
+				count(addrs.state) as state_count 
+				from gst_address addrs 
+				right join gst_state st 
+				on st.id = addrs.state AND 
+				addrs.party in (
+				select id from gst_party
+				where is_customer='t'
+				)
+				group by st.name
+			 ]]>
+		 </dataset>
+		 <category key="state_name" type="text"/> 
+		 <series key="state_count" type="pie"/>
+	 </chart>
+	 <chart name="chart.invoice.status.count" 
+	       title="No Of Invoices On Each Status">
+			<dataset type="rpc">
+			  <![CDATA[
+             com.axelor.gst.web.InvoiceController:generateRpc
+               ]]>	
+			</dataset>												 <!-- <dataset type="sql"> 
+																 <![CDATA[
+																 select status as status_name,
+																	count(id) as count_status 
+																	from gst_invoice group by status
+            -         													 ]]>
+		                                                               </dataset> -->
+		 <category key="status_name" type="text"/> 
+		 <series key="count_status" type="bar"/>
+	 </chart>
+	 
+	 <chart name="chart.invoice.total.amount.per.status" 
+	       title="Total Amount Of Each Invoice Status">
+		 <dataset type="jpql"> 
+			 <![CDATA[
+			    select gi.status as Status,
+				sum(gi.grossAmount) as Total_amount 
+				from Invoice gi group by gi.status
+			 ]]>
+		 </dataset>
+		 <category key="Status" type="text"/> 
+		 <series key="Total_amount" type="bar"/>
+	 </chart>
+	 
+	 
+	 <action-attrs name="action-attrs-fill-default-from-and-todate-in-chart-view">
+	    <attribute name="value" for="fromDate" expr="eval:__datetime__.minusDays(__datetime__.getDayOfMonth()).plusDays(1)"/>
+	    <attribute name="value" for="toDate" expr="eval:__datetime__.plusMonths(1)"/>
+	  </action-attrs>
+	  
+	  
+ 
+ </object-views>
+ 

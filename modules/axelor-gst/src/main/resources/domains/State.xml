@@ -7,7 +7,7 @@
   <module package="com.axelor.axelor.gst.db" name="axelor-gst"/>
   <entity name="State" lang="java">
   <string name="name" title="Name" required="true"/>
-  <many-to-one ref="com.axelor.axelor.gst.db.Country" name="country" title="Country"/>
+  <many-to-one ref="com.axelor.axelor.gst.db.Country" name="country" title="Country" required="true"/>
   
   
   </entity>

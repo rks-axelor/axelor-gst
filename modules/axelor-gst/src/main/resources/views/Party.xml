@@ -11,21 +11,40 @@
      <field name="gstin"/>
   </grid>
   
-  <form model="com.axelor.axelor.gst.db.Party" title="Party" name="party-form" onSave="action.party.generate.reference">
+  <form model="com.axelor.axelor.gst.db.Party" title="Party" name="party-form"><!-- onSave="action.party.generate.reference -->
     <panel name="party-panel">
       <field name="name" required="true"/>
-      <field name="reference" readonly="true"/>
+      <field name="reference" readonly="true" />
       <field name="type" required="true"/>
       <field name="isCustomer"/>
       <field name="isSupplier"/>
       <field name="gstin"/>
-      
+      <field name="contactList" colSpan="12" hideIf="type == 'individual'">
+         <editor>
+             <field name="name"/>
+             <field name="type"/>
+             <field name="primaryEmail"/>
+             <field name="secondaryEmail"/>
+             <field name="primaryPhone"/>
+             <field name="secondaryPhone"/>
+         </editor>
+      </field>
+    <field name="addressList" colSpan="12">
+      <editor>
+        <field name="type"/>
+        <field name="line1"/>
+        <field name="line2"/>
+        <field name="pinCode"/>
+        <field name="city"/>
+        <field name="state"/>
+        <field name="country"/>
+      </editor>
+    </field>  
     </panel>
-     <panel-related field="contactList"/>
-      <panel-related field="addressList"/>
   </form>
    
-   <action-method name="action.party.generate.reference">
+   <!-- <action-method name="action.party.generate.reference">
        <call class="com.axelor.gst.web.PartyController" method="setReference"/>
    </action-method>
+ -->
   </object-views>

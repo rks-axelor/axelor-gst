@@ -16,9 +16,18 @@
       <field name="logo" widget="image"/>
       <field name="gstin"/>
       <field name="address"/>
+      <field name="contactList" colSpan="12">
+	      <editor>
+	         <field name="name"/>
+             <field name="type"/>
+             <field name="primaryEmail"/>
+             <field name="secondaryEmail"/>
+             <field name="primaryPhone"/>
+             <field name="secondaryPhone"/>
+	      </editor>
+      </field>
     </panel>
-      <panel-related field="contactList"/>
-      <panel-related field="bankDetailList"/>  
+     <panel-related field="bankDetailList"/>
   </form>
   
   </object-views>

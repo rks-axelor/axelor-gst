@@ -13,24 +13,103 @@
   
   </grid>
     
-    <form model="com.axelor.axelor.gst.db.Invoice" title="" name="invoice-form" width="large">
-      <panel name= "invoice-panel">
+    <form model="com.axelor.axelor.gst.db.Invoice" title="Invoice" name="invoice-form" width="large"
+     onNew="action-record-invoice-fill-default-record-onnew,action-method-invoice-with-product" onSave="action-method-fill-reference-invoice">
+    <toolbar>
+	<button onClick="action-report-invoice-report" name="report" icon="fa-print" hideIf="!reference"/>
+   </toolbar>
+      <panel name= "invoice-panel" colSpan="8" readonlyIf="status == 'validate'">
        <field name="status" widget="NavSelect" readonly="true"/>
-       <field name="reference" readonly="true"/>
-       <field name="company" required="true"/>
+       <field name="reference" readonly="true" required="true"/>
+       <field name="company" required="true" onChange="action-method-recalculate-invoice,action-method-fill-invoice-default"/>
        <field name="invoiceDate"/>
        <field name="priority"/>
-       <field name="party"/>
+       <field name="party" onChange="action-method-fill-party-dependent-values,action-method-recalculate-invoice,action-method-fill-invoice-default"/>
        <field name="partyContact"/>
        <field name="invoiceAddress"/>
-       <field name="shippingAddress"/>
-       <field name="isInvoiceAddressAsShipping" />
+       <field name="isInvoiceAddressAsShipping" onChange="action-method-fill-party-dependent-values"/>
+       <field name="shippingAddress" hideIf="isInvoiceAddressAsShipping"/>
+       
+      </panel>
+      <panel colSpan="4" sidebar="true">
+           <button onClick="action-record-confirm-btn" name="btn-confirm" title="Draft" css="btn-primary" showIf="status == 'validate' || status == 'cancelled'"  />
+           <button onClick="action-method-fill-reference-invoice,action-record-validate-btn,save" name="btn-validate" title="Validate" css="btn-primary" showIf="status == 'draft'"/>
+           <button onClick="action-record-cancle-btn,save" name="btn-cancle" title="Cancle" css="btn-danger" showIf="status == 'validate'"/>
+           <button onClick="action-record-paid-btn,save" name="btn-paid" title="Paid" css="btn-primary" showIf="status == 'validate'" />
+      </panel>
+      
+      
+      <panel-related field="invioceItemsList" onChange="action-method-fill-invoice-default" readonlyIf="status == 'validate'">
+         <field name="product"/>
+         <field name="hsbn"/>
+         <field name="item"/>
+         <field name="qty"/>
+         <field name="price"/>
+      </panel-related>
+     <panel sidebar="true">
        <field name="netAmount" readonly="true"/>
        <field name="igst" readonly="true"/>
        <field name="cgst" readonly="true"/>
        <field name="sgst" readonly="true"/>
        <field name="grossAmount" readonly="true"/>
-      </panel>
-      <panel-related field="invioceItemsList"/>
+     </panel>      
     </form>
+    <action-record name="action-record-invoice-fill-default-record-onnew" model="com.axelor.axelor.gst.db.Invoice">
+      <field name="invoiceDate" expr="eval:__datetime__"/>
+      <field name="company" expr="Axelor India"/>
+      <field name="status" expr="draft"/>
+    </action-record>
+    
+    <action-method name="action-method-fill-party-dependent-values">
+      <call class="com.axelor.gst.web.InvoiceController" method="setPartydependentValues"/>
+    
+    </action-method>
+    <action-method name="action-method-fill-reference-invoice">
+      <call class="com.axelor.gst.web.InvoiceController" method="setReference"/>
+    </action-method>
+    <action-method name="action-method-fill-invoice-default">
+      <call class="com.axelor.gst.web.InvoiceController" method="setInvoiceDefault"/>
+    </action-method>
+    <action-method name="action-method-recalculate-invoice">
+      <call class="com.axelor.gst.web.InvoiceController" method="recalculateInvoice"/>
+    </action-method>
+    <action-method name="action-method-invoice-with-product">
+      <call class="com.axelor.gst.web.InvoiceController" method="createInvoice"/>
+    </action-method>
+    <action-record name="action-record-confirm-btn" model="com.axelor.axelor.gst.db.Invoice">
+      <field name="status" expr="draft"/>
+    </action-record>
+    <action-record name="action-record-validate-btn" model="com.axelor.axelor.gst.db.Invoice">
+      <field name="status" expr="validate"/>
+    </action-record>
+    <action-record name="action-record-cancle-btn" model="com.axelor.axelor.gst.db.Invoice">
+      <field name="status" expr="cancelled"/>
+    </action-record>
+    <action-record name="action-record-paid-btn" model="com.axelor.axelor.gst.db.Invoice">
+      <field name="status" expr="paid"/>
+    </action-record>
+     <action-report output="Invoice ${date} ${time}" 
+		name="action-report-invoice-report" 
+		design="invoicereport.rptdesign"
+		format="pdf">
+	 <param name="invoiceId" expr="eval: id"/>
+	 </action-report>
+	  <kanban columnBy="status" model="com.axelor.axelor.gst.db.Invoice" sequenceBy="priority" title="Invoice" name="invoice-kanban">
+ 		    <field name="company" />
+			<field name="status" />
+			<field name="reference" readonly="true"/>
+			<field name="invoiceDate" />
+			<field name="priority" />
+			  <template>
+			  	<![CDATA[
+			  		<div>
+			  		<h4>Company:</h4> <h5>{{record.company.name}}</h5> <br />
+			  		<h4>Status:</h4> <h5>{{record.status}}</h5><br />
+			  		<h4>Reference:</h4> <h5>{{record.reference}}</h5><br />
+			  		<h4>InvoiceDate:</h4> <h5>{{record.invoiceDate}}</h5><br />
+			  		<h4>Priority:</h4> <h5>{{record.priority}}</h5><br />
+			  		</div>
+			  	]]>
+			  </template>
+     </kanban>
   </object-views>

@@ -5,15 +5,15 @@
   http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
   
   <grid model="com.axelor.axelor.gst.db.ProductCategory" title="Product Category" name="productcategory-grid">
-     <field name="name"/>
-     <field name="code"/>
-     <field name="gstrate"/>
+     <field name="name" required="true"/>
+     <field name="code" required="true"/>
+     <field name="gstRate"/>
   </grid>
   <form model="com.axelor.axelor.gst.db.ProductCategory" title="Product Category" name="productcategory-form">
 	   <panel name="productcategory-panel">
-	          <field name="name"/>
-              <field name="code"/>
-             <field name="gstrate"/>
+	          <field name="name" required="true"/>
+              <field name="code" required="true"/>
+             <field name="gstRate"/>
 	   </panel>
   </form>
   

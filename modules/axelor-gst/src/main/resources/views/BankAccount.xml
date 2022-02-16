@@ -5,9 +5,9 @@
   http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
   
   <grid model="com.axelor.axelor.gst.db.BankAccount" title="Bank Details" name="bank-grid">
-      <field name="bank"/>
-      <field name="accountNo"/>
-      <field name="ifsc"/>
+      <field name="bank" required="true"/>
+      <field name="accountNo" required="true"/>
+      <field name="ifsc" required="true"/>
       <field name="type"/>
       <field name="address"/>
   
@@ -15,9 +15,9 @@
   
   <form model="com.axelor.axelor.gst.db.BankAccount" title="Bank Details" name="bank-form">
     <panel name="bank-panel">
-      <field name="bank"/>
-      <field name="accountNo"/>
-      <field name="ifsc"/>
+      <field name="bank" required="true"/>
+      <field name="accountNo" required="true"/>
+      <field name="ifsc" required="true"/>
       <field name="type"/>
       <field name="address"/>
     </panel>

@@ -8,7 +8,7 @@
   <entity name="Invoice" lang="java">
   <string name="status" title="Status" selection="gst.invoice.type.select" readonly="true"/>
   <many-to-one ref="com.axelor.axelor.gst.db.Company" name="company" title="Company" required="true"/>
-  <string name="reference" title="Reference" readonly="true"/>
+  <string name="reference" title="Reference" readonly="true" required="true"/>
   <datetime name="invoiceDate" title="InvoiceDate"/>
   <integer name="priority" title="Priority"/>
   <many-to-one ref="com.axelor.axelor.gst.db.Party" name="party" title="Party" required="true"/>
@@ -21,7 +21,7 @@
   <decimal name="cgst" title="CGST" readonly="true"/>
   <decimal name="sgst" title="SGST" readonly="true"/>
   <decimal name="grossAmount" title="GrossAmount" readonly="true"/>
-  <one-to-many ref="com.axelor.axelor.gst.db.InvoiceLine" name="invioceItemsList" title="InvoiceItem" />
+  <one-to-many ref="com.axelor.axelor.gst.db.InvoiceLine" name="invioceItemsList" title="InvoiceItem" mappedBy="invoice"/>
   
   </entity>
   </domain-models>

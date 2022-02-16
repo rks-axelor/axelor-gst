@@ -7,7 +7,7 @@
   <module package="com.axelor.axelor.gst.db" name="axelor-gst"/>
   <entity name="Contact" lang="java">
   <string name="name" title="Name" required="true"/>
-  <string name="type" title="Type" selection="gst.contact.type.select"/><!-- need to define selection -->
+  <string name="type" title="Type" selection="gst.contact.type.select" required="true"/><!-- need to define selection -->
   <string name="primaryEmail" title="Primary Email"/>
   <string name="secondaryEmail" title="Secondary Email"/>
   <string name="primaryPhone" title="Primary Phone"/>

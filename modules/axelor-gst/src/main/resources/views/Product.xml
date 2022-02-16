@@ -5,8 +5,12 @@
   http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
   
   <grid model="com.axelor.axelor.gst.db.Product" title="Product" name="product-grid">
-      <field name="name"/>
-      <field name="code"/>
+    <toolbar>
+       <button onClick="action-method-create-invoice-with-selected-product"  name="btn-create-invoice" icon="fa-indent"/>
+       
+    </toolbar>
+      <field name="name" required="true"/>
+      <field name="code" required="true"/>
       <field name="hsbn"/>
       <field name="category"/>
       <field name="salePrice"/>
@@ -16,11 +20,14 @@
   </grid>
   
   <form model="com.axelor.axelor.gst.db.Product" title="Product" name="product-form">
+  <toolbar>
+      <button onClick="action-report-generate-report" name="btn-print-invoice"  icon="fa-print" title="Report"/>
+      </toolbar>
     <panel name="product-panel">
-      <field name="name"/>
-      <field name="code"/>
+      <field name="name" required="true"/>
+      <field name="code" required="true"/>
       <field name="hsbn"/>
-      <field name="category"/>
+      <field name="category" onChange="action-method-set-gstrate"/>
       <field name="salePrice"/>
       <field name="costPrice"/>
       <field name="image" widget="image"/>
@@ -28,5 +35,20 @@
     
     </panel>
   </form>
-  
+ 
+  <action-method name="action-method-set-gstrate">
+     <call class="com.axelor.gst.web.ProductController" method="setgstrate"/>
+  </action-method>
+  <!-- <action-method name="action-method-create-product-report">
+     <call class="com.axelor.gst.web.ProductController" method="createProductReport"/>
+  </action-method> -->
+  <action-method name="action-method-create-invoice-with-selected-product">
+     <call class="com.axelor.gst.web.ProductController" method="createInvoicewithproduct"/>
+  </action-method>
+  <action-report output="Product${date}${time}"
+   name="action-report-generate-report" 
+   design="productreport.rptdesign" 
+   format="pdf">
+ 	    <param name="productIds" expr="eval: id"/>
+   </action-report>
   </object-views>

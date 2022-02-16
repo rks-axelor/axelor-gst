@@ -7,23 +7,30 @@
   <grid model="com.axelor.axelor.gst.db.InvoiceLine" title="InvoiceLine" name="invoiceline-grid">
     <field name="product"/>
     <field name="hsbn"/>
-    <field name="items"/>
     <field name="qty"/>
     <field name="price"/>
-    <field name="netAmount"/>
-    <field name="gstRate"/>
-    <field name="igst"/>
-    <field name="sgst"/>
-    <field name="cgst"/>
-    <field name="grossAmount"/>
   </grid>
   
   <form model="com.axelor.axelor.gst.db.InvoiceLine" title="InvoiceLine" name="invoiceline-form">
       <panel name="invoiceline-panel">
-          
-      
+            <field name="product" onChange="action-method-fill-item-name,action-method-fill-invoice-line"/>
+		    <field name="hsbn"/>
+		    <field name="item" required="true"/>
+		    <field name="qty" help="Quantity is default" onChange="action-method-fill-invoice-line"/>
+		    <field name="price" onChange="action-method-fill-invoice-line"/>
+	        <field name="netAmount" readonly="true"/>
+	        <field name="gstRate" readonly="true"/>
+	        <field name="igst" readonly="true"/>
+	        <field name="sgst" readonly="true"/>
+	        <field name="cgst" readonly="true"/>
+            <field name="grossAmount" readonly="true"/>
       
       </panel>
   </form>
-  
+  <action-method name="action-method-fill-item-name">
+    <call class="com.axelor.gst.web.InvoiceLineController" method="setItem"/>
+  </action-method>
+  <action-method name="action-method-fill-invoice-line">
+    <call class="com.axelor.gst.web.InvoiceLineController" method="setInvoiceLine"/>
+  </action-method>
   </object-views>

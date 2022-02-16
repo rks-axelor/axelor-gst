@@ -6,10 +6,10 @@
   <module package="com.axelor.axelor.gst.db" name="axelor-gst"/>
   <entity name="BankAccount" lang="java">
   
-  <string name="bank" title="Bank"/>
-  <string name="accountNo" title="Account No"/>
-  <string name="ifsc" title="IFSC"/>
-  <string name="type" title="Type" default="Current" selection="gst.bankaccount.type.select"/>
+  <string name="bank" title="Bank" required="true"/>
+  <string name="accountNo" title="Account No" required="true"/>
+  <string name="ifsc" title="IFSC" required="true"/>
+  <string name="type" title="Type" default="current" selection="gst.bankaccount.type.select"/>
   <string name="address" title="Address"/>
   </entity>
   

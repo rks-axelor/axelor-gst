@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
+  
+  <cards name="party-cards" title="Party" model="com.axelor.axelor.gst.db.Party">
+	    <field name="name" />
+	  	<field name="type" />
+	  	<field name="gstn" />
+	  	<field name="reference" />
+	    <template><![CDATA[
+		  <div class="span4">
+		    <strong>Name: {{name}}</strong><br />
+		    <strong>Type :{{type}}</strong><br />
+		    <strong>GSTN :{{gstn}}</strong><br />
+		    <strong>Reference:{{reference}}</strong><br />
+		  </div>
+	    ]]></template>
+</cards>
+
+  <cards name="product-card" model="com.axelor.axelor.gst.db.Product" title="Product Details">
+	    	<field name="name"/>
+		 	<field name="code" />
+		 	<field name="hsbn" />
+		 	<field name="category"/>
+		 	<field name="salePrice" />
+		 	<field name="costPrice" />
+		 	<field name="image"/>
+		    <field name="gstRate"/>
+		      <template>
+		      	<![CDATA[
+		      	<div class="span4 card-image">
+		      		<img ng-src="{{$image(null, 'image')}}">
+		      		<strong>{{name}}</strong><br />
+		      		<strong>{{code}}</strong><br />
+		      		<strong>{{hsbn}}</strong><br />
+		      		<strong>{{category.name}}</strong><br />
+		      		<strong>{{salePrice}}</strong><br />
+		      		<strong>{{costPrice}}</strong><br />
+		      		<strong>{{gstRate}}</strong><br />
+		      	</div>
+		      	]]>
+		      </template>
+    </cards>
+  
+ </object-views>

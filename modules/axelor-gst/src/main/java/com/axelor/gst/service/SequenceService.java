@@ -1,8 +1,9 @@
 package com.axelor.gst.service;
 
-import com.axelor.rpc.ActionRequest;
-import com.axelor.rpc.ActionResponse;
+import com.axelor.axelor.gst.db.Sequence;
 
 public interface SequenceService {
-    public void setNextNumber(ActionRequest request, ActionResponse response);
+    public String setNextNumber(Sequence sequence);
+
+	public Sequence saveNextNumber(String model);
 }

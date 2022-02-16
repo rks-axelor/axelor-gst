@@ -8,7 +8,7 @@
   <entity name="Party" lang="java">
   <string name="reference" readonly="true"/>
   <string name="name" title="Name" required="true"/>
-  <string name="type" title="Type" required="true" default="Company" selection="gst.party.type.select"/>
+  <string name="type" title="Type" required="true" default="company" selection="gst.party.type.select"/>
   <boolean name="isCustomer" title="Customer"/>
   <boolean name="isSupplier" title="Supplier"/>
   <string name="gstin" title="GSTIN" max="15" min="15"/>

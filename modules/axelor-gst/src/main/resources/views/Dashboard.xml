@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
+
+
+  <dashboard name="axelor.gst.dashboard" title="Gst Dashboard">
+    <dashlet action="chart:chart.unpaid.invoice.per.customer"/>
+    <dashlet action="chart:chart.paid.invoice.per.category.per.product"/>
+    <dashlet action="chart:chart.customer.per.state"/>
+    <dashlet action="chart:chart.invoice.status.count"/>
+    <dashlet action="menu.gst.app.invoice.all.invoice.older"/>
+    <dashlet action="chart:chart.invoice.total.amount.per.status"/>
+  </dashboard>
+  
+  
+   <action-view name="menu.gst.app.invoice.all.invoice.older" title="Older Invoice"
+         model="com.axelor.axelor.gst.db.Invoice">
+         
+         <view type="grid" name="invoice-grid"/>
+         <domain>self.status = 'validated' AND self.invoiceDate &lt;= date(date_trunc('month', current_date)) </domain>
+         
+  </action-view>
+  
+</object-views>

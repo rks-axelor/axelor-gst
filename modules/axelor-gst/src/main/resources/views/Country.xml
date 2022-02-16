@@ -10,7 +10,7 @@
   
 	  <form model="com.axelor.axelor.gst.db.Country" title="Country" name="country-form" >
 		  <panel name="country-panel">
-		      <field name="name"/>
+		      <field name="name" required="true"/>
 		  </panel>
 	  </form>
   </object-views>

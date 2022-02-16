@@ -23,7 +23,7 @@
   
   <selection name="gst.invoice.type.select">
   <option value="draft">Draft</option>
-  <option value="validate">Validate</option>
+  <option value="validate">Validated</option>
   <option value="paid">Paid</option>
   <option value="cancelled">Cancelled</option>
   </selection>
